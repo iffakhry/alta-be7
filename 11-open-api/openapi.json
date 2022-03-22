@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "ALTA API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/login":{
+            "post":{
+                "description": "Login",
+                "parameters": [],
+                "responses": {
+                    "200":{
+                        "description": "desc"
+                    }
+                }
+            }
+        }
+    }
+}
