@@ -1,6 +1,7 @@
 package user
 
 import (
+	"be7/layered/delivery/helper"
 	_userUseCase "be7/layered/usecase/user"
 	"net/http"
 
@@ -21,15 +22,8 @@ func (uh *UserHandler) GetAllHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		users, err := uh.userUseCase.GetAll()
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, map[string]interface{}{
-				"status":  "failed",
-				"message": "failed to fetch data",
-			})
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
 		}
-		return c.JSON(http.StatusOK, map[string]interface{}{
-			"status":  "success",
-			"message": "success get all data",
-			"data":    users,
-		})
+		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get all users", users))
 	}
 }
