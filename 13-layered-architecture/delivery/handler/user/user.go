@@ -4,6 +4,7 @@ import (
 	"be7/layered/delivery/helper"
 	_userUseCase "be7/layered/usecase/user"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -23,6 +24,24 @@ func (uh *UserHandler) GetAllHandler() echo.HandlerFunc {
 		users, err := uh.userUseCase.GetAll()
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get all users", users))
+	}
+}
+
+func (uh *UserHandler) GetByIdHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		idStr := c.Param("id")
+		id, err := strconv.Atoi(idStr)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
+		}
+		users, rows, err := uh.userUseCase.GetById(id)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to fetch data"))
+		}
+		if rows == 0 {
+			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("data not found"))
 		}
 		return c.JSON(http.StatusOK, helper.ResponseSuccess("success get all users", users))
 	}

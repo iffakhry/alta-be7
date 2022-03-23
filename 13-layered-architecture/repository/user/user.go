@@ -24,3 +24,15 @@ func (ur *UserRepository) GetAll() ([]_entities.User, error) {
 	}
 	return users, nil
 }
+
+func (ur *UserRepository) GetById(id int) (_entities.User, int, error) {
+	var user _entities.User
+	tx := ur.database.Find(&user, id)
+	if tx.Error != nil {
+		return user, 0, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return user, 0, nil
+	}
+	return user, int(tx.RowsAffected), nil
+}

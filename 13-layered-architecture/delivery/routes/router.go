@@ -8,4 +8,5 @@ import (
 
 func RegisterPath(e *echo.Echo, uh *_userHandler.UserHandler) {
 	e.GET("/users", uh.GetAllHandler())
+	e.GET("/users/:id", uh.GetByIdHandler())
 }
