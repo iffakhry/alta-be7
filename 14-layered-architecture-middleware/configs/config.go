@@ -8,8 +8,9 @@ import (
 )
 
 type AppConfig struct {
-	Port     int `yaml:"port"`
-	Database struct {
+	Port      int    `yaml:"port"`
+	SecretJWT string `yaml:"secretjwt"`
+	Database  struct {
 		Driver   string `yaml:"driver"`
 		Name     string `yaml:"name"`
 		Address  string `yaml:"address"`
@@ -36,6 +37,7 @@ func GetConfig() *AppConfig {
 func initConfig() *AppConfig {
 	var defaultConfig AppConfig
 	defaultConfig.Port = 8000
+	defaultConfig.SecretJWT = "S3CR3T"
 	defaultConfig.Database.Driver = "mysql"
 	defaultConfig.Database.Name = "be7"
 	defaultConfig.Database.Address = "localhost"

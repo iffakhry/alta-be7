@@ -2,8 +2,11 @@ package main
 
 import (
 	"be7/layered/configs"
+	_authHandler "be7/layered/delivery/handler/auth"
 	_userHandler "be7/layered/delivery/handler/user"
+	_authRepository "be7/layered/repository/auth"
 	_userRepository "be7/layered/repository/user"
+	_authUseCase "be7/layered/usecase/auth"
 	_userUseCase "be7/layered/usecase/user"
 	"fmt"
 	"log"
@@ -24,10 +27,17 @@ func main() {
 	userUseCase := _userUseCase.NewUserUseCase(userRepo)
 	userHandler := _userHandler.NewUserHandler(userUseCase)
 
+	authRepo := _authRepository.NewAuthRepository(db)
+	authUseCase := _authUseCase.NewAuthUseCase(authRepo)
+	authHandler := _authHandler.NewAuthHandler(authUseCase)
+
 	e := echo.New()
 	e.Pre(middleware.RemoveTrailingSlash())
 	e.Use(_middlewares.CustomLogger())
+
 	_routes.RegisterPath(e, userHandler)
+	_routes.RegisterAuthPath(e, authHandler)
+
 	log.Fatal(e.Start(fmt.Sprintf(":%d", config.Port)))
 
 }
