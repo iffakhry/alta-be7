@@ -2,7 +2,9 @@ package user
 
 import (
 	"be7/layered/delivery/helper"
+	_middlewares "be7/layered/delivery/middlewares"
 	_userUseCase "be7/layered/usecase/user"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -31,8 +33,20 @@ func (uh *UserHandler) GetAllHandler() echo.HandlerFunc {
 
 func (uh *UserHandler) GetByIdHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
+
+		idToken, errToken := _middlewares.ExtractToken(c)
+		if errToken != nil {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
+		}
+		fmt.Println("id token", idToken)
 		idStr := c.Param("id")
 		id, err := strconv.Atoi(idStr)
+
+		// check apakah id dari token sama dengan id dari param
+		if idToken != id {
+			return c.JSON(http.StatusUnauthorized, helper.ResponseFailed("unauthorized"))
+		}
+
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("id not recognise"))
 		}
