@@ -3,6 +3,7 @@ package user
 import (
 	"be7/layered/delivery/helper"
 	_middlewares "be7/layered/delivery/middlewares"
+	_entities "be7/layered/entities"
 	_userUseCase "be7/layered/usecase/user"
 	"fmt"
 	"net/http"
@@ -65,5 +66,23 @@ func (uh *UserHandler) GetHelloHandler() echo.HandlerFunc {
 	return func(c echo.Context) error {
 
 		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success get hello"))
+	}
+}
+
+func (uh *UserHandler) PostInserHandler() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var user _entities.User
+		errBind := c.Bind(&user)
+		if errBind != nil {
+			return c.JSON(http.StatusBadRequest, helper.ResponseFailed("failed bind data"))
+		}
+		user, row, err := uh.userUseCase.Insert(user)
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to create user"))
+		}
+		if row == 0 {
+			return c.JSON(http.StatusInternalServerError, helper.ResponseFailed("failed to create user"))
+		}
+		return c.JSON(http.StatusOK, helper.ResponseSuccessWithoutData("success Create users"))
 	}
 }

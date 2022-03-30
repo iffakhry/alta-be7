@@ -25,7 +25,7 @@ func (uuc *UserUseCase) GetById(id int) (_entities.User, int, error) {
 	return user, rows, err
 }
 
-// func (uuc *UserUseCase) Insert(user _entities.User) (_entities.User, error) {
-// 	// user, rows, err := uuc.userRepository.GetById(id)
-// 	return user, err
-// }
+func (uuc *UserUseCase) Insert(user _entities.User) (_entities.User, int, error) {
+	user, rows, err := uuc.userRepository.Insert(user)
+	return user, rows, err
+}

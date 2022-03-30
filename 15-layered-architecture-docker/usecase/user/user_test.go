@@ -60,6 +60,12 @@ func (m mockUserRepository) GetById(id int) (_entities.User, int, error) {
 	}, 1, nil
 }
 
+func (m mockUserRepository) Insert(data _entities.User) (_entities.User, int, error) {
+	return _entities.User{
+		Name: "alta", Email: "alta@mail.com", Password: "12345",
+	}, 1, nil
+}
+
 // === mock error ===
 
 type mockUserRepositoryError struct{}
@@ -70,4 +76,8 @@ func (m mockUserRepositoryError) GetAll() ([]_entities.User, error) {
 
 func (m mockUserRepositoryError) GetById(id int) (_entities.User, int, error) {
 	return _entities.User{}, 0, fmt.Errorf("error get data user")
+}
+
+func (m mockUserRepositoryError) Insert(data _entities.User) (_entities.User, int, error) {
+	return _entities.User{}, 0, fmt.Errorf("error insert data user")
 }

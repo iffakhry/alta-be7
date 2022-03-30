@@ -36,3 +36,13 @@ func (ur *UserRepository) GetById(id int) (_entities.User, int, error) {
 	}
 	return user, int(tx.RowsAffected), nil
 }
+
+func (ur *UserRepository) Insert(user _entities.User) (_entities.User, int, error) {
+
+	tx := ur.database.Create(&user)
+	if tx.Error != nil {
+		return _entities.User{}, 0, tx.Error
+	}
+	return user, 1, nil
+
+}

@@ -16,4 +16,5 @@ func RegisterPath(e *echo.Echo, uh *_userHandler.UserHandler) {
 	e.GET("/hello", uh.GetHelloHandler())
 	e.GET("/users", uh.GetAllHandler())
 	e.GET("/users/:id", uh.GetByIdHandler(), _middlewares.JWTMiddleware())
+	e.POST("/users", uh.PostInserHandler())
 }

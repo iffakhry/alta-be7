@@ -17,6 +17,8 @@ docker push <image-name>
 
 # create and run container
 docker run -p <host-port>:<container-port> -e <env-name>=<env-value> -v <host-volume>:<container-volume> --name <container-name> <image-name>
+#example:
+docker run -d -p 5000:8080 -e APP_PORT="8080" -e DB_PORT="3306" -e DB_DRIVER="mysql" -e DB_NAME="altagormdb" -e DB_ADDRESS="db-endpoint" -e DB_USERNAME="root" -e DB_PASSWORD="password" --name altabe7container alta-be7:latest
 
 # run existing container
 docker start <container-name>
@@ -55,4 +57,12 @@ if you can't run docker on your linux. please run
 sudo usermod -a -G docker ubuntu
 # or: sudo chmod 777 /var/run/docker.sock
 # or: sudo su
+```
+
+```
+
+```
+# copy file from local computer to AWS EC2 server
+```
+scp -i <namafile.pem> -r <folder-name-local> <username-ec2>@<ip-ec2>:/home/ubuntu
 ```
