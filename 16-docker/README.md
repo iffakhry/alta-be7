@@ -45,11 +45,24 @@ docker exec -it <container-name> <command>
 docker exec -it mysql bash
 ```
 
-# Using docker
+# Using docker 
 
 If you are using docker-desktop, the containers can access host os by using `host.docker.internal` name.
 
 Otherwise, you can use default host IP address: `172.17.0.1`
+
+```
+# How to create and run mysql DB on container docker
+docker run -p 3307:3306 \
+-e MYSQL_ROOT_PASSWORD=rahasia \
+-e MYSQL_DATABASE=altagormdb \
+--name mysqldocker \
+-d \
+mysql
+
+# How to create and run our app on container docker
+docker run -d -p 5000:8080 -e APP_PORT="8080" -e DB_PORT="3306" -e DB_DRIVER="mysql" -e DB_NAME="altagormdb" -e DB_ADDRESS="172.17.0.1" -e DB_USERNAME="root" -e DB_PASSWORD="rahasia" --name altabe7container alta-be7-images:latest
+```
 
 
 if you can't run docker on your linux. please run
