@@ -1,7 +1,8 @@
 # Kubernetes
 Orchestration
-![orchestration-1.png] (https://github.com/iffakhry/alta-be7/blob/main/17-kube-okteto/docs/orchestration-1.png?raw=true)
-![orchestration-2.png] (https://github.com/iffakhry/alta-be7/blob/main/17-kube-okteto/docs/orchestration-2.png?raw=true)
+![orchestration-1.png](https://github.com/iffakhry/alta-be7/blob/main/17-kube-okteto/docs/orchestration-1.png?raw=true)
+
+![orchestration-2.png](https://github.com/iffakhry/alta-be7/blob/main/17-kube-okteto/docs/orchestration-2.png?raw=true)
 
 ## Preparation
 
