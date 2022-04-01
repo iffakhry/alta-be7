@@ -36,3 +36,19 @@ kubectl -n <namespace> delete <resource>
 ```bash
     kubectl get <kind>
 ```
+
+# How to run go-app
+```bash
+    # go to directory go-app
+    cd go-app
+
+    # apply
+    kubectl -n iffakhry apply -f mydeployment.yaml
+    kubectl -n iffakhry apply -f myservice.yaml
+    kubectl -n iffakhry apply -f myingress.yaml
+
+    # check ingress
+    kubectl get ingress
+    # should show the ingress. example iffakhry.cloud.okteto.net
+    
+```
