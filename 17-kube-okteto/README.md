@@ -50,5 +50,6 @@ kubectl -n <namespace> delete <resource>
     # check ingress
     kubectl get ingress
     # should show the ingress. example iffakhry.cloud.okteto.net
-    
+    # and you can try on postman https://iffakhry.cloud.okteto.net/hello
+
 ```
